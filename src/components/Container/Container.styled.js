@@ -9,7 +9,7 @@ export const StyledTempContainer = styled("div")`
   padding-left: 20px; */
 
 	${theme.mq.mobileOnly} {
-		max-width: 480px;
+		max-width: 380px;
 	}
 
 	${theme.mq.tablet} {
@@ -19,7 +19,7 @@ export const StyledTempContainer = styled("div")`
 	}
 
 	${theme.mq.desktop} {
-		width: 1280px;
+		width: 1170px;
 		/* padding-right: 16px;
     padding-left: 16px; */
 	}

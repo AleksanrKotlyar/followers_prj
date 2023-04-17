@@ -4,8 +4,8 @@ export const Header = styled.header`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	max-width: 1280px;
-	min-width: 380px;
+	max-width: 1170px;
+
 	margin-bottom: 16px;
 	/* border-bottom: 1px solid #2a363b; */
 	padding: 5px;

@@ -13,7 +13,7 @@ export const TweetsUl = styled.ul`
 	gap: 8px;
 
 	${theme.mq.desktop} {
-		gap: 16px;
+		gap: 15px;
 	}
 `;
 export const Card = styled.li`
@@ -112,9 +112,19 @@ export const Btn = styled.button`
 	box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
 	border-radius: 10.3108px;
 	transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+	&:hover,
+	:focus {
+		background: #37ce97;
+		transform: scale(1.03);
+	}
 `;
+
 export const BtnBack = styled.button`
-	padding: 14px 28px;
+	display: flex;
+	align-items: center;
+
+	padding: 7px 14px;
 	margin-top: 15px;
 
 	font-weight: 600;
@@ -126,4 +136,15 @@ export const BtnBack = styled.button`
 	box-shadow: 0px 3.43693px 3.43693px rgba(0, 0, 0, 0.25);
 	border-radius: 10.3108px;
 	transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+	border: none;
+
+	&:hover,
+	:focus {
+		background-color: #6cd4ae;
+	}
+
+	&:hover svg,
+	:focus svg {
+		transform: scale(1.2);
+	}
 `;

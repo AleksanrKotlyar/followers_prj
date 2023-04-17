@@ -1,6 +1,5 @@
 import Container from "components/Container/Container";
-import { Navigation } from "../Navigation/Navigation";
-// import { useAuth } from "hooks";
+import { Navigation } from "components/Navigation/Navigation";
 import { Header } from "./AppBar.styled";
 
 export const AppBar = () => {

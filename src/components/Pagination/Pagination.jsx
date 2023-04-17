@@ -1,7 +1,7 @@
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 
-export default function PaginationRounded({ onChange, numbPage }) {
+export default function PaginationRounded({ onChange, numbPage, page }) {
 	return (
 		<Stack spacing={2} style={{ alignItems: "center", margin: "30px 0" }}>
 			<Pagination
@@ -13,6 +13,7 @@ export default function PaginationRounded({ onChange, numbPage }) {
 				color="secondary"
 				showFirstButton
 				showLastButton
+				page={page}
 			/>
 		</Stack>
 	);

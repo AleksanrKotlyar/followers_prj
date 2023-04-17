@@ -1,8 +1,7 @@
 import Container from "components/Container/Container";
-import { useDispatch, useSelector } from "react-redux";
-import { updateTweets } from "redux/tweetsOperations";
 import { useNavigate } from "react-router-dom";
-// import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
+import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 
 import {
 	TweetsUl,
@@ -14,24 +13,13 @@ import {
 	Btn,
 	BtnBack,
 } from "./TweetsList.styled";
-import { getTweets } from "redux/selectors";
+import { WrapSpinner } from "components/Layout/Layout.styled";
+import { Circles } from "react-loader-spinner";
 
-export const TweetsList = () => {
-	const users = useSelector(getTweets);
-	// const [users, setUsers] = useState([]);
-	const dispatch = useDispatch();
+export const TweetsList = ({ users, handleClick }) => {
 	const navigate = useNavigate();
-
-	// const filter = useSelector(getFilter);
-
-	// const normFilter = filter.toLocaleLowerCase();
-	// const renderContactsList = contacts.filter((contact) =>
-	// 	contact.name.toLocaleLowerCase().includes(normFilter)
-	// let following = [];
-
-	// const location = useLocation();
-
-	// const backLink = location.state?.from ?? "/";
+	const location = useLocation();
+	const linkToBack = location.state?.from ?? "/";
 
 	function followerFormat(data) {
 		return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -41,39 +29,13 @@ export const TweetsList = () => {
 		return [...following].includes(id) ? true : false;
 	}
 
-	const handleClick = (id) => {
-		const user = users.find((item) => item.id === id);
-		const indx = user.following.includes(id);
-
-		if (!indx) {
-			const data = [...user.following, id];
-			const count = user.followers + 1;
-			dispatch(
-				updateTweets({
-					id,
-					following: data,
-					followers: count,
-				})
-			);
-		} else {
-			const data = [...user.following].splice(indx);
-			const count = user.followers - 1;
-			dispatch(
-				updateTweets({
-					id,
-					following: data,
-					followers: count,
-				})
-			);
-		}
-	};
-
 	return (
 		<Container>
-			<BtnBack type="button" onClick={() => navigate("/")}>
-				Go Back
+			<BtnBack type="button" onClick={() => navigate(linkToBack)}>
+				<ArrowBackSharpIcon />
+				<span style={{ marginLeft: "4px" }}>Go Back</span>
 			</BtnBack>
-			{users.length > 0 ? (
+			{users?.length > 0 ? (
 				<TweetsUl>
 					{users?.map(({ id, user, tweets, followers, avatar, following }) => (
 						<Card key={id}>
@@ -89,7 +51,7 @@ export const TweetsList = () => {
 								style={{
 									backgroundColor: checkFollowing(id, following)
 										? "#5CD3A8"
-										: "#EBD8FF",
+										: "",
 								}}
 								onClick={() => handleClick(id)}
 							>
@@ -99,7 +61,17 @@ export const TweetsList = () => {
 					))}
 				</TweetsUl>
 			) : (
-				<p style={{ margin: "0 auto" }}>No contacts find</p>
+				<WrapSpinner>
+					<Circles
+						height="100"
+						width="100"
+						color="rgb(96 45 214)"
+						ariaLabel="circles-loading"
+						wrapperStyle={{}}
+						wrapperClass=""
+						visible={true}
+					/>
+				</WrapSpinner>
 			)}
 		</Container>
 	);

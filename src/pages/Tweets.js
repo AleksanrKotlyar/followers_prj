@@ -24,9 +24,15 @@ import { Box } from "@mui/material";
 export default function Tweets() {
 	const [page, setPage] = useState(pageFromLS() ? pageFromLS() : 1);
 	const [users, setUsers] = useState([]);
-	const [filterValue, setFilterValue] = useState("show all");
+
 	const [numbPage, setNumbPage] = useState(1);
-	const [filter, setFilter] = useState();
+	const [filter, setFilter] = useState(
+		FilterFromLS() === true || FilterFromLS() === false ? FilterFromLS() : null
+	);
+	console.log("filter", filter);
+
+	const [filterValue, setFilterValue] = useState(FilterValueFromLS());
+	console.log("filterValue", filterValue);
 
 	const navigate = useNavigate();
 	const location = useLocation();
@@ -55,6 +61,36 @@ export default function Tweets() {
 		} catch (error) {
 			console.error(error);
 		}
+	}
+
+	function FilterFromLS() {
+		try {
+			const isFilterLocalStorage = localStorage.getItem("filter");
+			const isPageInLocalStorageParsed = JSON.parse(isFilterLocalStorage);
+
+			return isPageInLocalStorageParsed;
+		} catch (error) {
+			console.error(error);
+		}
+	}
+
+	function FilterValueFromLS() {
+		const isFilterLocalStorage = localStorage.getItem("filter");
+		const isPageInLocalStorageParsed = JSON.parse(isFilterLocalStorage);
+		console.log("isPageInLocalStorageParsed", isPageInLocalStorageParsed);
+
+		switch (isPageInLocalStorageParsed) {
+			case false:
+				return "follow";
+
+			case true:
+				return "following";
+
+			default:
+				return "show all";
+		}
+
+		// return isPageInLocalStorageParsed;
 	}
 
 	const handlePageChange = (e, p) => {
@@ -139,18 +175,22 @@ export default function Tweets() {
 	};
 
 	const handleFilterChange = (event) => {
+		setPage(1);
 		localStorage.setItem("page", JSON.stringify(1));
 		setFilterValue(event.target.value);
 
 		switch (event.target.value) {
 			case "follow":
 				setFilter(false);
+				localStorage.setItem("filter", JSON.stringify(false));
 				break;
 			case "following":
 				setFilter(true);
+				localStorage.setItem("filter", JSON.stringify(true));
 				break;
 			default:
 				setFilter(null);
+				localStorage.setItem("filter", JSON.stringify(null));
 				break;
 		}
 	};
@@ -200,7 +240,7 @@ export default function Tweets() {
 						id="filter"
 						value={filterValue}
 						onChange={handleFilterChange}
-						defaultValue={"show all"}
+						// defaultValue={"show all"}
 					>
 						<option value="show all">Show all</option>
 						<option value="follow">Follow</option>
@@ -212,7 +252,7 @@ export default function Tweets() {
 
 			{users && <TweetsList users={users} handleClick={handleClick} />}
 			{/* <ToTopButton /> */}
-			{users.length > 0 && (
+			{numbPage > 1 && (
 				<PaginationRounded
 					onChange={handlePageChange}
 					numbPage={numbPage}

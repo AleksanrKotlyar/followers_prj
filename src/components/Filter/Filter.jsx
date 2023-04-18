@@ -11,7 +11,6 @@ import Tooltip from "@mui/material/Tooltip";
 export default function SelectSmall({ filteredTweets }) {
 	const [anchorEl, setAnchorEl] = React.useState(null);
 	const [selectedValue, setSelectedValue] = React.useState("show all");
-	console.log("selectedValue", selectedValue);
 
 	const open = Boolean(anchorEl);
 	const handleClick = (event) => {

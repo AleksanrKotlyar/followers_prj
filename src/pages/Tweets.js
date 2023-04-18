@@ -16,24 +16,18 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
 // import SelectSmall from "components/Filter/Filter";
+// import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
 import Container from "components/Container/Container";
 import { Box } from "@mui/material";
-
-// import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
 
 export default function Tweets() {
 	const [page, setPage] = useState(pageFromLS() ? pageFromLS() : 1);
 	const [users, setUsers] = useState([]);
-
 	const [numbPage, setNumbPage] = useState(1);
 	const [filter, setFilter] = useState(
 		FilterFromLS() === true || FilterFromLS() === false ? FilterFromLS() : null
 	);
-	console.log("filter", filter);
-
 	const [filterValue, setFilterValue] = useState(FilterValueFromLS());
-	console.log("filterValue", filterValue);
-
 	const navigate = useNavigate();
 	const location = useLocation();
 	const linkToBack = location.state?.from ?? "/";
@@ -77,7 +71,6 @@ export default function Tweets() {
 	function FilterValueFromLS() {
 		const isFilterLocalStorage = localStorage.getItem("filter");
 		const isPageInLocalStorageParsed = JSON.parse(isFilterLocalStorage);
-		console.log("isPageInLocalStorageParsed", isPageInLocalStorageParsed);
 
 		switch (isPageInLocalStorageParsed) {
 			case false:
@@ -89,8 +82,6 @@ export default function Tweets() {
 			default:
 				return "show all";
 		}
-
-		// return isPageInLocalStorageParsed;
 	}
 
 	const handlePageChange = (e, p) => {
@@ -138,6 +129,29 @@ export default function Tweets() {
 	// 				prev.map((user) => (user.id === id ? updateUser : user))
 	// 			);
 	// 		})();
+	// 	}
+	// };
+
+	// const filteredTweets = (data) => {
+	// 	switch (data) {
+	// 		case "follow":
+	// 			const followData = usersFilter.filter(
+	// 				(user) => user.following.length === 0
+	// 			);
+	// 			const countPageFollowData = Math.round(Number(followData.length) / 12);
+	// 			setNumbPage(countPageFollowData);
+	// 			return setUsers(followData);
+	// 		case "following":
+	// 			const followingData = usersFilter.filter(
+	// 				(user) => user.following.length > 0
+	// 			);
+	// 			const countPageFollowingData = Math.round(
+	// 				Number(followingData.length) / 12
+	// 			);
+	// 			setNumbPage(countPageFollowingData);
+	// 			return setUsers(followingData);
+	// 		default:
+	// 			return setUsers(fetchTweets(1));
 	// 	}
 	// };
 
@@ -194,28 +208,6 @@ export default function Tweets() {
 				break;
 		}
 	};
-	// const filteredTweets = (data) => {
-	// 	switch (data) {
-	// 		case "follow":
-	// 			const followData = usersFilter.filter(
-	// 				(user) => user.following.length === 0
-	// 			);
-	// 			const countPageFollowData = Math.round(Number(followData.length) / 12);
-	// 			setNumbPage(countPageFollowData);
-	// 			return setUsers(followData);
-	// 		case "following":
-	// 			const followingData = usersFilter.filter(
-	// 				(user) => user.following.length > 0
-	// 			);
-	// 			const countPageFollowingData = Math.round(
-	// 				Number(followingData.length) / 12
-	// 			);
-	// 			setNumbPage(countPageFollowingData);
-	// 			return setUsers(followingData);
-	// 		default:
-	// 			return setUsers(fetchTweets(1));
-	// 	}
-	// };
 
 	return (
 		<Container>

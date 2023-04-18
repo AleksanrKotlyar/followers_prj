@@ -15,7 +15,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
-// import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
+import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
 import Container from "components/Container/Container";
 import { Box } from "@mui/material";
 
@@ -28,7 +28,7 @@ export default function Tweets() {
 		FilterFromLS() === true || FilterFromLS() === false ? FilterFromLS() : null
 	);
 	const [filterValue, setFilterValue] = useState(FilterValueFromLS());
-	// const [isShowToTopButton, setShowToTopButton] = useState(false);
+	const [isShowToTopButton, setShowToTopButton] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const linkToBack = location.state?.from ?? "/";
@@ -210,15 +210,15 @@ export default function Tweets() {
 		}
 	};
 
-	// useEffect(() => {
-	// 	const minLimit = 400;
+	useEffect(() => {
+		const minLimit = 400;
 
-	// 	window.addEventListener("scroll", () => {
-	// 		window.scrollY > minLimit
-	// 			? setShowToTopButton(true)
-	// 			: setShowToTopButton(false);
-	// 	});
-	// }, []);
+		window.addEventListener("scroll", () => {
+			window.scrollY > minLimit
+				? setShowToTopButton(true)
+				: setShowToTopButton(false);
+		});
+	}, []);
 
 	return (
 		<Container>
@@ -252,7 +252,7 @@ export default function Tweets() {
 			</Box>
 
 			{users && <TweetsList users={users} handleClick={handleClick} />}
-			{/* {isShowToTopButton && <ToTopButton />} */}
+			{isShowToTopButton && <ToTopButton />}
 			{usersQuantity > 11 && (
 				<PaginationRounded
 					onChange={handlePageChange}

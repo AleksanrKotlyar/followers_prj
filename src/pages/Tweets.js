@@ -15,7 +15,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import ArrowBackSharpIcon from "@mui/icons-material/ArrowBackSharp";
-// import SelectSmall from "components/Filter/Filter";
 // import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
 import Container from "components/Container/Container";
 import { Box } from "@mui/material";
@@ -23,11 +22,13 @@ import { Box } from "@mui/material";
 export default function Tweets() {
 	const [page, setPage] = useState(pageFromLS() ? pageFromLS() : 1);
 	const [users, setUsers] = useState([]);
+	const [usersQuantity, setUsersQuantity] = useState([]);
 	const [numbPage, setNumbPage] = useState(1);
 	const [filter, setFilter] = useState(
 		FilterFromLS() === true || FilterFromLS() === false ? FilterFromLS() : null
 	);
 	const [filterValue, setFilterValue] = useState(FilterValueFromLS());
+	// const [isShowToTopButton, setShowToTopButton] = useState(false);
 	const navigate = useNavigate();
 	const location = useLocation();
 	const linkToBack = location.state?.from ?? "/";
@@ -35,8 +36,8 @@ export default function Tweets() {
 	useEffect(() => {
 		(async function fetchAllUsers() {
 			const payload = await fetchAllTweets(filter !== null ? filter : null);
-
-			const countPage = Math.round(Number(payload.length) / 12);
+			setUsersQuantity(payload.length);
+			const countPage = Math.ceil(Number(payload.length) / 12);
 			setNumbPage(countPage);
 		})();
 		(async function fetchUsers() {
@@ -209,6 +210,16 @@ export default function Tweets() {
 		}
 	};
 
+	// useEffect(() => {
+	// 	const minLimit = 400;
+
+	// 	window.addEventListener("scroll", () => {
+	// 		window.scrollY > minLimit
+	// 			? setShowToTopButton(true)
+	// 			: setShowToTopButton(false);
+	// 	});
+	// }, []);
+
 	return (
 		<Container>
 			<Helmet>
@@ -232,7 +243,6 @@ export default function Tweets() {
 						id="filter"
 						value={filterValue}
 						onChange={handleFilterChange}
-						// defaultValue={"show all"}
 					>
 						<option value="show all">Show all</option>
 						<option value="follow">Follow</option>
@@ -240,11 +250,10 @@ export default function Tweets() {
 					</StyledSelect>
 				</Box>
 			</Box>
-			{/* <SelectSmall filteredTweets={handleFilterChange} /> */}
 
 			{users && <TweetsList users={users} handleClick={handleClick} />}
-			{/* <ToTopButton /> */}
-			{numbPage > 1 && (
+			{/* {isShowToTopButton && <ToTopButton />} */}
+			{usersQuantity > 11 && (
 				<PaginationRounded
 					onChange={handlePageChange}
 					numbPage={numbPage}

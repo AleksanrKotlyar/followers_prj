@@ -4,8 +4,8 @@ import { Layout } from "components/Layout/Layout";
 import { Toaster } from "react-hot-toast";
 import "utils/index.css";
 
-const HomePage = lazy(() => import("../../pages/Home"));
-const TweetsPage = lazy(() => import("../../pages/Tweets"));
+const HomePage = lazy(() => import("pages/Home"));
+const TweetsPage = lazy(() => import("pages/Tweets"));
 // const NotFoundPage = lazy(() => import("../../pages/NotFoundPage"));
 
 export const App = () => {

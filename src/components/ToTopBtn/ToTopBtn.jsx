@@ -10,7 +10,12 @@ export const ToTopButton = () => {
 	};
 
 	return (
-		<ToTopBtn onClick={onTopMove} aria-label="move to top" size="large">
+		<ToTopBtn
+			onClick={onTopMove}
+			aria-label="move to top"
+			size="large"
+			color="secondary"
+		>
 			<UpIcon />
 		</ToTopBtn>
 	);

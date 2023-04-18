@@ -22,7 +22,7 @@ import { Box } from "@mui/material";
 // import { ToTopButton } from "components/ToTopBtn/ToTopBtn";
 
 export default function Tweets() {
-	const [page, setPage] = useState(pageFromLS());
+	const [page, setPage] = useState(pageFromLS() ? pageFromLS() : 1);
 	const [users, setUsers] = useState([]);
 	const [filterValue, setFilterValue] = useState("show all");
 	const [numbPage, setNumbPage] = useState(1);

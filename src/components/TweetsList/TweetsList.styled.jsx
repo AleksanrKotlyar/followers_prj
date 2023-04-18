@@ -113,8 +113,7 @@ export const Btn = styled.button`
 	border-radius: 10.3108px;
 	transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
 
-	&:hover,
-	:focus {
+	&:hover {
 		background: #37ce97;
 		transform: scale(1.03);
 	}
@@ -125,7 +124,6 @@ export const BtnBack = styled.button`
 	align-items: center;
 
 	padding: 7px 14px;
-	margin-top: 15px;
 
 	font-weight: 600;
 	font-size: 18px;
@@ -147,4 +145,25 @@ export const BtnBack = styled.button`
 	:focus svg {
 		transform: scale(1.2);
 	}
+`;
+
+export const StyledSelect = styled.select`
+	background-color: #7a4af1;
+	border: none;
+	border-radius: 5px;
+	color: #333;
+	font-size: 16px;
+	height: 38px;
+
+	padding: 5px 7px;
+
+	&:focus {
+		outline: none;
+	}
+`;
+
+export const StyledLabel = styled.label`
+	font-size: 18px;
+	font-weight: bold;
+	margin-right: 10px;
 `;

@@ -14,7 +14,6 @@ export const ToTopButton = () => {
 			onClick={onTopMove}
 			aria-label="move to top"
 			size="large"
-			backgroundColor="secondary"
 			background="violet"
 			color="secondary"
 			sx={{
